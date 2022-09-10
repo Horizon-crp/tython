@@ -1,4 +1,4 @@
-project_path = __file__[: -(len((e := __file__.split('/'))[-1]) + len(e[-2]))]
+project_path = __file__[: -(len((e := __file__.split('/'))[-1]) + len(e[-2]))] + '/data/project'
 from os import path, listdir
 def isdir(Name: str) -> bool:
   return path.isdir(get_path(Name))
