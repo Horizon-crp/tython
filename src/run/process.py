@@ -17,5 +17,3 @@ def run(Code: str, FileName: str = 'Runner.ty', *, endfunc = None) -> Optional[d
     return None
   endfunc(out, err)
   return None
-  
-  
