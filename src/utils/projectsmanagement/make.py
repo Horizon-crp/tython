@@ -13,8 +13,7 @@ def mkproject(Name: str) -> None:
   '''
   if isdir(f'/data/project/{Name}'):
     raise ValueError('Project already exist, to delete a project please check the function rmproject')
-  path = get_path(Name)
-  mkdir(path)
+  mkdir((path := get_path(Name)))
   with open(f'{path}/main.py', 'x') as f:
     f.write("Print(\"Hello, world !\")")
   return None
