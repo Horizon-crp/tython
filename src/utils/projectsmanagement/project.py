@@ -1,9 +1,10 @@
-from os import mkdir, isfile
+from os import mkdir
 from ..filemanagement import isdir, get_path, lstdir, get_path_str
 from typing import Optional
 class project:
   def __new__(self, ProjectName: str):
-    if isdir((self.path := get_path)) is False: raise ValueError("No such project")
+    self.path = get_path()
+    if isdir(self.path) is False: raise ValueError("No such project")
     self.name = ProjectName
     self.files = lstdir(ProjectName)
     self.path_str = get_path_str(ProjectName)
@@ -11,19 +12,18 @@ class project:
 
   def run(self, File: str, *, endfunc = None) -> Optional[dict]:
     '''
-  Run a translated tython code
-  '''
-  FileName = f'{self.path_str}/{File}'
-  if isfile(FileName) is False: raise ValueError('No such file')
-  p = subprocess.Popen(f'python3 {FileName}', shell=True)
-  out, err = p.communicate()
-  print(f"Code exited.\nSubprocess Ouput : {out}\nSubprocess error : {err}")
-  if endfunc is None:
-    if out is not None or err is not None:
-      return {"out": out, "error": err}
+    Run a translated tython code
+    '''
+    if self.path.isfile(File) is False: raise ValueError('No such file')
+    p = subprocess.Popen(f'python3 {File}', shell=True)
+    out, err = p.communicate()
+    print(f"Code exited.\nSubprocess Ouput : {out}\nSubprocess error : {err}")
+    if endfunc is None:
+      if out is not None or err is not None:
+        return {"out": out, "error": err}
+      return None
+    endfunc(out, err)
     return None
-  endfunc(out, err)
-  return None
   
   def add_file(self, Name: str, Content: str):
     with open(f'{self.path_str}/{Name}', 'x') as f:
