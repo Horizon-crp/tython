@@ -4,8 +4,9 @@ def reset_indent(content: str) -> str:
   e = 0
   for i in content:
     if i != ' ':
-      e += 1
-  return content[e:]
+      return content[e:]
+    e += 1
+  return ''
 
 def frst(Content: str) -> str:
   return Content[0] + Content[1] + Content[2] + Content[3]
@@ -26,10 +27,13 @@ def compile(File: str, /, *, CompiledPlace: str = None, autorun: bool = True) ->
   '''
   indent = indentation()
   with open(File, 'r') as f:
-    content = r.read()
+    content = f.read()
   py: str = ''
-  for line in content:
+  nl: str = ''
+  for line in content.split('\n'):
+    print(line)
     line = reset_indent(line)
+    print(line)
     try:
       nl, indent = data[frst(line)](line, indent)
     except KeyError:
