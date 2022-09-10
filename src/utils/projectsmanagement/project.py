@@ -43,5 +43,11 @@ class project:
     self.files = lstdir(self.name)
     return self
 
+  def ls(self):
+    '''
+    The ls command (same as the __str__ method)
+    '''
+    return ', '.join(self.files)
+  
   def __str__(self):
-    return str(self.files)
+    return ', '.join(self.files)
