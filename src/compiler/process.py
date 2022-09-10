@@ -21,6 +21,14 @@ class indentation:
       e += '\t'
     return e
 
+def check(Code: str) -> str:
+  py: str = ''
+  for i in Code.split('\n'):
+    if not i.replace(" ", '') == '':
+      if i.startswith("#") is False:
+        py += i
+  return py
+
 def compile(File: str, /, *, CompiledPlace: str = None, autorun: bool = True) -> None:
   '''
   Compile a ty file into python code
@@ -31,14 +39,13 @@ def compile(File: str, /, *, CompiledPlace: str = None, autorun: bool = True) ->
   py: str = ''
   nl: str = ''
   for line in content.split('\n'):
-    print(line)
     line = reset_indent(line)
-    print(line)
     try:
       nl, indent = data[frst(line)](line, indent)
     except KeyError:
       nl += line
     py += f'{indent}{nl}\n'
+  py = check(py)
   if CompiledPlace is not None:
     with open(CompiledPlace, 'w') as f:
       f.write(py)
