@@ -1,4 +1,3 @@
-from ..utils import
 import subprocess
 from typing import Optional
 project_path = __file__[: -(len((e := __file__.split('/'))[-1]) + len(e[-2]))] + '/data/run'
