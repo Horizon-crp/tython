@@ -6,7 +6,7 @@ def run(Code: str, FileName: str = 'Runner.ty', *, endfunc = None) -> Optional[d
   '''
   Run a translated tython code
   '''
-  FileName = f"{project_path.replace('/', '.')}/{run}"
+  FileName = f"{project_path.replace('.ty', '.py').replace('/', '.')}/{FileName}"
   with open(FileName, 'w') as f:
     f.write(Code)
   p = subprocess.Popen(f'python3 {FileName}', shell=True)
@@ -18,5 +18,3 @@ def run(Code: str, FileName: str = 'Runner.ty', *, endfunc = None) -> Optional[d
     return None
   endfunc(out, err)
   return None
-  
-  
