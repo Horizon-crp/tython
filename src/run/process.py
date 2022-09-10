@@ -1,11 +1,11 @@
 import subprocess
 from typing import Optional
-project_path = __file__[: -(len((e := __file__.split('/'))[-1]) + len(e[-2]))] + '/data/run'
+project_path = __file__[: -(len((e := __file__.split('/'))[-1]) + len(e[-2]) + 2)] + '/data/run'
 def run(Code: str, FileName: str = 'Runner.ty', *, endfunc = None) -> Optional[dict]:
   '''
   Run a translated tython code
   '''
-  FileName = f"{project_path.replace('.ty', '.py').replace('/', '.')}/{FileName}"
+  FileName = f"{project_path}/{FileName.replace('.ty', '.py').replace('/', '.')}"
   with open(FileName, 'w') as f:
     f.write(Code)
   p = subprocess.Popen(f'python3 {FileName}', shell=True)
@@ -17,3 +17,5 @@ def run(Code: str, FileName: str = 'Runner.ty', *, endfunc = None) -> Optional[d
     return None
   endfunc(out, err)
   return None
+  
+  
