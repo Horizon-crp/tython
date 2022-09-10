@@ -1,0 +1,9 @@
+if 'hello' == 'hi' {
+  print("hello world");
+}
+elif 1 == 'hi' {
+  print("nl");
+}
+else {
+  print("hi");
+}
