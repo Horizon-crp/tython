@@ -1,5 +1,6 @@
 from os import mkdir, isfile
-from ..filemanagement import isdir, get_path, lstdir, get_path_str 
+from ..filemanagement import isdir, get_path, lstdir, get_path_str
+from typing import Optional
 class project:
   def __new__(self, ProjectName: str):
     if isdir((self.path := get_path)) is False: raise ValueError("No such project")
@@ -8,7 +9,7 @@ class project:
     self.path_str = get_path_str(ProjectName)
     return self
 
-  def run(self, File: str, *, endfunc = None):
+  def run(self, File: str, *, endfunc = None) -> Optional[dict]:
     '''
   Run a translated tython code
   '''
