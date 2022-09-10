@@ -1,15 +1,12 @@
 from os import mkdir
 from ..filemanagement import isdir, get_path, lstdir, get_path_str 
 class project:
-  def __init__(self, ProjectName: str):
-    '''
-    Represent a project, to "visualise" it
-    '''
-    self.path = get_path(ProjectName)
-    if isdir(self.path) is False: raise ValueError("No such project")
+  def __new__(self, ProjectName: str):
+    if (self.path := isdir(self.path)) is False: raise ValueError("No such project")
     self.name = ProjectName
     self.files = lstdir(ProjectName)
     self.path_str = get_path_str(ProjectName)
+    return self
 
   def add_file(self, Name: str, Content: str):
     with open(f'{self.path_str}/{Name}', 'x') as f:
